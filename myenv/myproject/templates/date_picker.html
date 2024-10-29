@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Picker</title>
+
+    <!-- jQuery and jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <!-- Custom CSS for styling the form -->
+    <style>
+        .ui-datepicker {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        /* Style the form */
+        form div {
+            margin-bottom: 15px;
+        }
+        form button {
+            padding: 8px 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select a Date</h1>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            {{ form.date_field.label_tag }} <!-- Render the label -->
+            {{ form.date_field }} <!-- Render the date picker input -->
+        </div>
+    </br>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+    <!-- Display the selected date here -->
+    <p class="selected-date">Selected Date: <span id="display-date">None</span></p>
+    
+    <!-- Display form errors -->
+    {% if form.errors %}
+        <ul>
+        {% for field, errors in form.errors.items %}
+            <li>{{ field }}: {{ errors|join:", " }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- jQuery UI DatePicker Initialization -->
+    <script>
+        $(function () {
+            // Initialize the jQuery UI datepicker
+            $(".datepicker").datepicker({
+                dateFormat: "yy-mm-dd",  
+                changeMonth: true,        
+                changeYear: true,         
+                // showButtonPanel: true  
+                onSelect: function(dateText) {
+                    // When a date is selected, update the #display-date span with the selected date
+                    $("#display-date").text(dateText);
+                }   
+            });
+        });
+    </script>
+
+</body>
+</html>

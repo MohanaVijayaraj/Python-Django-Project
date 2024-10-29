@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    {%extends "master.html" %}
+    <head>
+        <title>
+            {% block title %}
+            My Tennis Club
+            {% endblock %}
+        </title>
+    </head>
+    <body>
+        {% block content %}
+        <h1>My Tennis Club</h1>
+        <h3>Members</h3>
+        <p>Check out all our <a href="members/">members</a></p>
+        {% endblock %}
+    </body>
+</html>

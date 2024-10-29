@@ -1,0 +1,70 @@
+<!-- employee_template.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Form</title>
+
+    <!-- jQuery and jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <style>
+        /* Optional: You can add some custom CSS for the datepicker if needed */
+        .ui-datepicker {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Employee Form</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            {{ form.employee_name.label_tag }} <!-- Employee Name Label -->
+            {{ form.employee_name }} <!-- Employee Name Input Field -->
+        </div>
+        <br>
+        <div>
+            {{ form.date_of_joining.label_tag }} <!-- Date of Joining Label -->
+            {{ form.date_of_joining }} <!-- Date Picker for Date of Joining -->
+        </div>
+        <br>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+    <!-- Optional: Display form errors -->
+    {% if form.errors %}
+    <ul>
+        {% for field, errors in form.errors.items %}
+        <li>{{ field }}: {{ errors|join:", " }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <!-- jQuery UI DatePicker Initialization -->
+    <script>
+        $(function () {
+            // Initialize the jQuery UI datepicker
+            $(".datepicker").datepicker({
+                dateFormat: "yy-mm-dd",  
+                changeMonth: true,       
+                changeYear: true,         
+                // showButtonPanel: true     
+            });
+        });
+    </script>
+</body>
+
+</html>
